@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-
+const bodyParser = require('body-parser');
 const userRoute = require('./routes/user');
 
 mongoose.connect('mongodb+srv://Amelix:pwt7zmb9wmz.kgm1JZU@cluster0.v7j3nsb.mongodb.net/Piiquante?retryWrites=true&w=majority',
@@ -22,6 +22,7 @@ app.use((req, res, next) => {
 
 
 app.use('/api/auth', userRoute);
+app.use(bodyParser.json());
 app.use(express.json());
 
 module.exports = app;
