@@ -1,8 +1,11 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+const path = require('path');
+
+
 const userRoute = require('./routes/user');
+const sauceRoute = require('./routes/sauce');
 
 mongoose.connect('mongodb+srv://Amelix:pwt7zmb9wmz.kgm1JZU@cluster0.v7j3nsb.mongodb.net/Piiquante?retryWrites=true&w=majority',
     {
@@ -20,9 +23,12 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(express.json());
+
+app.use('/images', express.static(path.join(__dirname, 'images')))
 
 app.use('/api/auth', userRoute);
-app.use(bodyParser.json());
-app.use(express.json());
+app.use('/api/sauces', sauceRoute);
+
 
 module.exports = app;
